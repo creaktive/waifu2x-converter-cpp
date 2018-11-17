@@ -1,5 +1,5 @@
 # waifu2x-converter-cpp
-Dockerfile for [DeadSix27/waifu2x-converter-cpp](https//github.com/DeadSix27/waifu2x-converter-cpp).
+Dockerfile for [DeadSix27/waifu2x-converter-cpp](https://github.com/DeadSix27/waifu2x-converter-cpp).
 
 Essentially this is a CLI version of [waifu2x.me](https://waifu2x.me) that doesn't require a GPU either.
 Make sure your VM is allowed to spread to as many CPUs as possible!
