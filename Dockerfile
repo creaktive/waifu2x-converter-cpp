@@ -1,6 +1,9 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 MAINTAINER Stanislaw Pusep <stas@sysd.org>
+
+# later versions fail with 'Could NOT find OpenCL (missing: OpenCL_LIBRARY) (found version "2.2")'
+ARG VERSION=v5.2.4
 
 # Prepare
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
@@ -16,10 +19,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 # Compile & Install
 RUN git clone https://github.com/DeadSix27/waifu2x-converter-cpp && \
     cd waifu2x-converter-cpp && \
+    git checkout $VERSION && \
     mkdir out && cd out && \
     cmake .. && make && \
     make -j4 install && ldconfig && \
-    cp -a ../models_rgb /
+    cp -a ../models_rgb / && \
+    cd .. && \
+    rm -rf waifu2x-converter-cpp
 
 # Cleanup
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y purge \

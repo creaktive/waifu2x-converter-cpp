@@ -6,26 +6,27 @@ Make sure your VM is allowed to spread to as many CPUs as possible!
 
 ## Usage:
 ```
-$ docker run --rm -i waifu2x-converter-cpp -j 4 -m noise_scale < input.png > output.png
+$ docker run --rm -i waifu2x-converter-cpp -j 4 -m noise-scale < input.png > output.png
 
 (go grab a coffee, it takes a while and produces no output)
 
 $ docker run --rm -i --entrypoint=/usr/local/bin/waifu2x-converter-cpp waifu2x-converter-cpp --help
 USAGE:
 
-   /usr/local/bin/waifu2x-converter-cpp  [--list-opencv-formats] [-l]
-                                        [--block_size <integer>]
+   /usr/local/bin/waifu2x-converter-cpp  [--list-opencv-formats] [-l] [-f
+                                        <png,jpg,webp,...>] [-c <0-9>] [-q
+                                        <integer>] [--block-size <integer>]
                                         [--disable-gpu] [--force-OpenCL]
                                         [-p <integer>] [-j <integer>]
-                                        [--model_dir <string>]
-                                        [--scale_ratio <double>]
-                                        [--noise_level <1|2|3>] [-m <noise
-                                        |scale|noise_scale>] [-q] [-r
+                                        [--model-dir <string>]
+                                        [--scale-ratio <double>]
+                                        [--noise-level <0|1|2|3>] [-m
+                                        <noise|scale|noise-scale>] [-s] [-r
                                         <bool>] [-o <string>] -i <string>
                                         [--] [--version] [-h]
 
 
-Where: 
+Where:
 
    --list-opencv-formats
      dump opencv supported format list
@@ -33,7 +34,19 @@ Where:
    -l,  --list-processor
      dump processor list
 
-   --block_size <integer>
+   -f <png,jpg,webp,...>,  --output-format <png,jpg,webp,...>
+     The format used when running in recursive/folder mode
+
+     See --list-opencv-formats for a list of supported formats/extensions.
+
+   -c <0-9>,  --png-compression <0-9>
+     Set PNG compression level (0-9), 9 = Max compression (slowest &
+     smallest)
+
+   -q <integer>,  --image-quality <integer>
+     Define JPEG and WebP compression quality (0-100)
+
+   --block-size <integer>
      block size
 
    --disable-gpu
@@ -48,27 +61,27 @@ Where:
    -j <integer>,  --jobs <integer>
      number of threads launching at the same time
 
-   --model_dir <string>
+   --model-dir <string>
      path to custom model directory (don't append last / )
 
-   --scale_ratio <double>
+   --scale-ratio <double>
      custom scale ratio
 
-   --noise_level <1|2|3>
+   --noise-level <0|1|2|3>
      noise reduction level
 
-   -m <noise|scale|noise_scale>,  --mode <noise|scale|noise_scale>
+   -m <noise|scale|noise-scale>,  --mode <noise|scale|noise-scale>
      image processing mode
 
-   -q,  --quiet
-     Enable quiet mode.
+   -s,  --silent
+     Enable silent mode.
 
-   -r <bool>,  --recursive_directory <bool>
-     Search recursively through directories to find more images to process.
-     
+   -r <bool>,  --recursive-directory <bool>
+     Search recursively through directories to find more images to
+     process.
 
      If this is set to 0 it will only check in the directory specified if
-     the input is a directory instead of an image. 
+     the input is a directory instead of an image.
 
      You mustn't supply this argument with something other than 0 or 1.
 
